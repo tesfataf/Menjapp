@@ -63,3 +63,15 @@ func (reqRepo *RequestGormRepo) DisApprove(id uint) (*entity.Request, []error) {
 	}
 	return req, errs
 }
+
+//PostRequest stores a given customer comment in the database
+func (reqRepo *RequestGormRepo) PostRequest(request *entity.Request) (*entity.Request, []error) {
+	req := request
+	errs := reqRepo.conn.Create(req).GetErrors()
+	if len(errs) > 0 {
+		return nil, errs
+	}
+
+	return req, errs
+
+}

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:menjapp/bloc_observer.dart';
-import 'package:menjapp/screens/tester/testerHome.dart';
-import 'package:menjapp/screens/tester/updateTester.dart';
 import 'package:menjapp/src/blocs/user_event.dart';
 import 'package:menjapp/src/screens/user_route.dart';
 import 'package:menjapp/src/user.dart';
@@ -38,8 +36,10 @@ class MyApp extends StatelessWidget{
         create: (context) => UserBloc(userRepository: this.userRepository)..add(UserLoad()),
         child: MaterialApp(
           title: 'MenjApp',
+          debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primaryColor: Colors.red,
+        //   accentColor: Color(0xFFFE9EB),
             visualDensity: VisualDensity.adaptivePlatformDensity,
              ),
              onGenerateRoute: UserAppRoute.generateRoute,

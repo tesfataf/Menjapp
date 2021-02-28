@@ -8,12 +8,14 @@ class UserRepository {
   UserRepository({@required this.dataProvider})
       : assert(dataProvider != null);
 
-  Future<UserModel> createUser(UserModel user) async {
+  Future<void> createUser(UserModel user) async {
     return await dataProvider.createUser(user);
   }
 
   Future<List<UserModel>> getUsers() async {
+    print(dataProvider.getUsers());
     return await dataProvider.getUsers();
+    
   }
 
   Future<void> updateUser(UserModel user) async {

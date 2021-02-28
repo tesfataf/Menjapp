@@ -78,7 +78,7 @@ func (ach *ResultHandler) PostResult(w http.ResponseWriter, r *http.Request, ps 
 		return
 	}
 
-	p := fmt.Sprintf("/v1/admin/users/%d", result.ID)
+	p := fmt.Sprintf("/users/%d", result.ID)
 	w.Header().Set("Location", p)
 	w.WriteHeader(http.StatusCreated)
 	return

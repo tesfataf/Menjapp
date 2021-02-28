@@ -101,7 +101,7 @@ func (ach *AdminUserHandler) PostUser(w http.ResponseWriter, r *http.Request, ps
 		return
 	}
 
-	p := fmt.Sprintf("/v1/admin/users/%d", user.ID)
+	p := fmt.Sprintf("/users/:%d", user.ID)
 	w.Header().Set("Location", p)
 	w.WriteHeader(http.StatusCreated)
 	return

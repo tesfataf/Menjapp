@@ -18,6 +18,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield UserLoading();
       try {
         final users = await userRepository.getUsers();
+        print("on bloc lay ngn");
+        print(users);
         yield UsersLoadSuccess(users);
       } catch (_) {
         yield UserOperationFailure();
@@ -27,7 +29,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     if (event is UserCreate) {
       try {
         await userRepository.createUser(event.user);
-        final users = await userRepository.getUsers();
+       final users = await userRepository.getUsers();
         yield UsersLoadSuccess(users);
       } catch (_) {
         yield UserOperationFailure();
@@ -46,7 +48,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     if (event is UserDelete) {
       try {
-        await userRepository.deleteUser(event.user.id);
+        await userRepository.deleteUser(event.user.id.toString());
         final users = await userRepository.getUsers();
         yield UsersLoadSuccess(users);
       } catch (_) {

@@ -53,3 +53,13 @@ func (reqServ *RequestService) DisApprove(id uint) (*entity.Request, []error) {
 	return disapp, errs
 
 }
+
+//GiveResult service
+func (reqServ *RequestService) PostRequest(request *entity.Request) (*entity.Request, []error) {
+	req, errs := reqServ.requestRepo.PostRequest(request)
+	if len(errs) > 0 {
+		return nil, errs
+	}
+	return req, errs
+
+}

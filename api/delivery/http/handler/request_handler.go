@@ -2,10 +2,12 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/tesfataf/MenjaApp/api/entity"
 	"github.com/tesfataf/MenjaApp/api/request"
 )
 
@@ -143,5 +145,35 @@ func (ach *RequestHandler) DisApprove(w http.ResponseWriter, r *http.Request, ps
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusNoContent)
+	return
+}
+
+// PostRequest handles POST /v1/admin/comments request
+func (ach *RequestHandler) PostRequest(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	l := r.ContentLength
+	body := make([]byte, l)
+	r.Body.Read(body)
+	request := &entity.Request{}
+
+	err := json.Unmarshal(body, request)
+
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
+	}
+
+	request, errs := ach.requestService.PostRequest(request)
+
+	if len(errs) > 0 {
+		w.Header().Set("Content-Type", "application/json")
+		http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
+		return
+	}
+
+	p := fmt.Sprintf("/requests/%d", request.ID)
+	w.Header().Set("Location", p)
+	w.WriteHeader(http.StatusCreated)
 	return
 }

@@ -12,11 +12,10 @@ class UserDataProvider{
 
   UserDataProvider({@required this.httpClient}) :assert(httpClient != null);
 
-  Future<UserModel> createUser(UserModel user) async {
-    final response = await httpClient.post(
-      Uri.http('http://192.168.43.42:8181', '/users'),
+  Future<void> createUser(UserModel user) async {
+    final response = await httpClient.post('$_baseUrl/users',
       headers: <String, String>{
-        'Content-Type' : 'application/json; charse=UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
       
       },
 
@@ -31,10 +30,19 @@ class UserDataProvider{
       }),
     );
 
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(jsonDecode(response.body));
-    }else{
-      throw Exception('Failed to create course.');
+    print("hlooow its mehhh");
+    print(response.reasonPhrase );
+    print(response.statusCode );
+
+    print(response.body);
+
+    // if (response.statusCode == 201) {
+      
+    //   return UserModel.fromJson(jsonDecode(response.body));
+    // }else
+    
+    if (response.statusCode != 201){
+      throw Exception('Failed to create User.');
     }
 
   }
@@ -43,7 +51,9 @@ class UserDataProvider{
     final response = await httpClient.get('$_baseUrl/users');
     if(response.statusCode == 200){
       final users = jsonDecode(response.body) as List;
-      return users.map((user) => UserModel.fromJson(user));
+      //print(users); 
+      return users.map((user) => UserModel.fromJson(user)).toList();
+
     }else{
       throw Exception('failed to load users');
     }
@@ -54,7 +64,7 @@ class UserDataProvider{
     final http.Response response = await httpClient.put(
       '$_baseUrl/users/${user.id}',
       headers: <String, String>{
-        'content-Type' : 'application/json; charset=UTF-8',
+        'Content-Type' : 'application/json; charset=UTF-8',
       },
       body: jsonEncode(<String, dynamic>{
         'id' : user.id,
@@ -66,7 +76,9 @@ class UserDataProvider{
         'role': user.role,
       }),
     );
-    if (response.statusCode != 204) {
+    print(response.statusCode);
+    print(response.reasonPhrase);
+    if (response.statusCode != 200) {
       throw Exception('Failed to load user!');
     }
   } 

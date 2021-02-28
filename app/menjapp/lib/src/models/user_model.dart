@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 
 class UserModel extends Equatable{
-  String id;
+  int id;
   String firstname;
   String lastname;
   String username;
@@ -14,11 +14,14 @@ class UserModel extends Equatable{
   UserModel({this.id, @required this.firstname,this.lastname,this.username,
               this.password, this.profilepic,this.role});
 
-  
+  @override
+  // TODO: implement props
+  List<Object> get props => [id,firstname,lastname,username,password,profilepic,role];
+
 
   factory UserModel.fromJson(Map<String, dynamic> parsedJson) {
-    print(parsedJson['results'].length);
     return UserModel(
+    id: parsedJson['id'],
     firstname: parsedJson['firstname'],
     lastname: parsedJson['lastname'],
     username: parsedJson['username'],
@@ -28,12 +31,9 @@ class UserModel extends Equatable{
     );
   }
   @override
-  String toString() => 'Course{id: $id,firstname: $firstname,lastname: $lastname,username: $username,password: $password, profilepic: $profilepic,role: $role}';
+  String toString() => 'User{id: $id,firstname: $firstname,lastname: $lastname,username: $username,password: $password, profilepic: $profilepic,role: $role}';
 
-  @override
-  // TODO: implement props
-  List<Object> get props => [id,firstname,lastname,username,password,profilepic,role];
-
+  
  
 
   // String get firstname => _firstname;

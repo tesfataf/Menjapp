@@ -64,7 +64,7 @@ func main() {
 	//usesrs
 	router.GET("/users", adminUserHandler.GetUsers)
 	router.GET("/users/:id", adminUserHandler.GetSingleUser)
-	router.POST("/users/:id", adminUserHandler.PostUser)
+	router.POST("/users", adminUserHandler.PostUser)
 	router.DELETE("/users/:id", adminUserHandler.DeleteUser)
 	router.PUT("/users/:id", adminUserHandler.PutUser)
 
@@ -73,6 +73,7 @@ func main() {
 	router.GET("/v1/requests/:id", requestHandler.GetSingleRequest)
 	router.PUT("/v1/requests/:id", requestHandler.Approve)
 	router.DELETE("/v1/requests/:id", requestHandler.DisApprove)
+	router.POST("/requests", requestHandler.PostRequest)
 
 	//results
 	router.GET("/v1/results/:id", resultHandler.GetResult)

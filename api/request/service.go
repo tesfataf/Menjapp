@@ -8,4 +8,5 @@ type RequestService interface {
 	Request(id uint) (*entity.Request, []error)
 	Approve(item *entity.Request) (*entity.Request, []error)
 	DisApprove(id uint) (*entity.Request, []error)
+	PostRequest(item *entity.Request) (*entity.Request, []error)
 }

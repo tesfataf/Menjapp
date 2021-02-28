@@ -19,7 +19,7 @@ class AddUpdateUser extends StatefulWidget {
 class _AddUpdateUserState extends State<AddUpdateUser> {
   final _formKey = GlobalKey<FormState>();
 
-  final Map<String, dynamic> _course = {};
+  final Map<String, dynamic> user = {};
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _AddUpdateUserState extends State<AddUpdateUser> {
                   decoration: InputDecoration(labelText: 'First Name'),
                   onSaved: (value) {
                     setState(() {
-                      this._course["firstname"] = value;
+                      this.user["firstname"] = value;
                     });
                   }),
               TextFormField(
@@ -58,7 +58,7 @@ class _AddUpdateUserState extends State<AddUpdateUser> {
                   },
                   decoration: InputDecoration(labelText: 'Last Name'),
                   onSaved: (value) {
-                    this._course["lastname"] = value;
+                    this.user["lastname"] = value;
                   }),
               TextFormField(
                   initialValue: widget.args.edit
@@ -73,7 +73,7 @@ class _AddUpdateUserState extends State<AddUpdateUser> {
                   decoration: InputDecoration(labelText: 'UserName'),
                   onSaved: (value) {
                     setState(() {
-                      this._course["username"] = value;
+                      this.user["username"] = value;
                     });
                   }),
               TextFormField(
@@ -88,7 +88,7 @@ class _AddUpdateUserState extends State<AddUpdateUser> {
                   decoration: InputDecoration(labelText: 'Password'),
                   onSaved: (value) {
                     setState(() {
-                      this._course["password"] = value;
+                      this.user["password"] = value;
                     });
                   }),
               Padding(
@@ -98,22 +98,27 @@ class _AddUpdateUserState extends State<AddUpdateUser> {
                     final form = _formKey.currentState;
                     if (form.validate()) {
                       form.save();
-                      final UserEvent event = widget.args.edit
+                       final UserEvent event = 
+                       widget.args.edit
                           ? UserUpdate(
                               UserModel(
                                 id: widget.args.user.id,
-                                firstname: this._course["firstname"],
-                                lastname: this._course["lastname"],
-                                username: this._course["username"],
-                                password: this._course["password"],
+                                firstname: this.user["firstname"],
+                                lastname: this.user["lastname"],
+                                username: this.user["username"],
+                                password: this.user["password"],
                               ),
                             )
-                          : UserCreate(
+                          :
+                       UserCreate(
                               UserModel(
-                                firstname: this._course["firstname"],
-                                lastname: this._course["lastname"],
-                                username: this._course["username"],
-                                password: this._course["password"],
+                                id: 4,
+                                firstname: this.user["firstname"],
+                                lastname: this.user["lastname"],
+                                username: this.user["username"],
+                                password: this.user["password"],
+                                profilepic: 'nopro',
+                                role: 'student'
                               ),
                             );
                       BlocProvider.of<UserBloc>(context).add(event);
